@@ -1,0 +1,16 @@
+# dataset (cada um baixa do repositório oficial)
+dataset-resized/
+trashnet/
+*.zip
+
+# modelos pesados vão para o Drive
+modelos/*.keras
+modelos/*.h5
+modelos/*.pt
+runs/
+
+# python / jupyter
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
