@@ -49,7 +49,10 @@ dataset-resized/
 | `01_eda_split.py` | Confere integridade, conta classes, faz o split 70/15/15 (seed 42), calcula pesos de classe e gera as figuras |
 | `split.json` | **A divisão oficial.** Lista de imagens de treino/validação/teste + pesos de classe |
 | `saida_eda.txt` | Log da execução (contagens, duplicatas, pesos) |
-| `figuras/eda/` | Distribuição de classes, distribuição por conjunto, amostras por classe, cor média por classe |
+| `figuras/eda/` | Distribuição de classes, distribuição por conjunto, amostras por classe, cor média por classe, mesma imagem nas 3 resoluções, duplicatas |
+| `common.py` | Código compartilhado pelos 6 treinos: semente, classes, pipeline de dados, callbacks e registro de custo |
+| `02_mlp.py` | Treino dos experimentos `mlp_128_sem` e `mlp_128_com` |
+| `treino_mlp_colab.ipynb` | Notebook para rodar o `02_mlp.py` no Colab |
 
 Para regenerar (não é necessário, o resultado é sempre o mesmo):
 ```bash
@@ -62,19 +65,22 @@ python 01_eda_split.py --data_dir dataset-resized
 
 | Classe | Total | Treino | Validação | Teste | Peso de classe |
 |---|---|---|---|---|---|
-| glass | 501 | 350 | 75 | 76 | 0.8419 |
-| paper | 594 | 416 | 89 | 89 | 0.7083 |
-| cardboard | 403 | 282 | 61 | 60 | 1.0449 |
-| plastic | 482 | 337 | 72 | 73 | 0.8744 |
-| metal | 410 | 287 | 61 | 62 | 1.0267 |
-| trash | 137 | 96 | 21 | 20 | 3.0694 |
-| **Total** | **2527** | **1768** | **379** | **380** | |
+| glass | 501 | 351 | 75 | 75 | 0.84 |
+| paper | 594 | 415 | 89 | 90 | 0.7104 |
+| cardboard | 403 | 282 | 61 | 60 | 1.0455 |
+| plastic | 482 | 338 | 72 | 72 | 0.8723 |
+| metal | 410 | 287 | 62 | 61 | 1.0273 |
+| trash | 137 | 96 | 20 | 21 | 3.0712 |
+| **Total** | **2527** | **1769** | **379** | **379** | |
 
 - Todas as imagens: 512×384, nenhuma corrompida.
 - Desbalanceamento: trash = 5,4% do total; razão maior/menor classe = 4,34.
 - Pesos calculados **só no treino** com `compute_class_weight("balanced")`.
 - ⚠️ **3 imagens duplicadas com rótulos diferentes** (mantidas, citadas como limitação no artigo):
   `glass115 = metal91`, `glass176 = plastic152`, `glass389 = plastic332`.
+  As 6 cópias ficam **todas no treino**, para que nenhuma imagem apareça em dois conjuntos
+  (sem vazamento para validação/teste). O script confere isso pelo hash de cada arquivo.
+  Ver `figuras/eda/duplicatas.png`.
 
 ---
 
