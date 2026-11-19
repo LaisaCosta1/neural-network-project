@@ -1,6 +1,7 @@
 Total de imagens: 2527 (esperado: 2527)
 Corrompidas: 0
 Tamanhos encontrados: {(512, 384): 2527}
+Modos de cor (canais): {'RGB': 2527}  -> todas são convertidas para RGB no carregamento
 Grupos de duplicatas exatas: 3
     ['dataset-resized/glass/glass115.jpg', 'dataset-resized/metal/metal91.jpg']
     ['dataset-resized/glass/glass176.jpg', 'dataset-resized/plastic/plastic152.jpg']
@@ -15,8 +16,10 @@ Contagem por classe:
   trash        137  (5.4%)
   Razão maior/menor classe: 4.34
 
-Tamanhos: train=1768 val=379 test=380
-Pesos de classe (treino): {'glass': 0.8419, 'paper': 0.7083, 'cardboard': 1.0449, 'plastic': 0.8744, 'metal': 1.0267, 'trash': 3.0694}
+Imagens em duplicatas forçadas no treino: 6
+Tamanhos: train=1769 val=379 test=379
+Checagem de vazamento por conteúdo: OK (nenhuma imagem repetida entre conjuntos)
+Pesos de classe (treino): {'glass': 0.84, 'paper': 0.7104, 'cardboard': 1.0455, 'plastic': 0.8723, 'metal': 1.0273, 'trash': 3.0712}
 
 Salvo: split.json
 Figuras salvas em: figuras/eda/
